@@ -1,0 +1,25 @@
+import jfAjaxRequestBase from './request/base.es7';
+import jfAjaxRequestDelete from './request/delete.es7';
+import jfAjaxRequestGet from './request/get.es7';
+import jfAjaxRequestHead from './request/head.es7';
+import jfAjaxRequestOptions from './request/options.es7';
+import jfAjaxRequestPatch from './request/patch.es7';
+import jfAjaxRequestPost from './request/post.es7';
+import jfAjaxRequestPut from './request/put.es7';
+import jfAjaxResponseDefault from './response/default.es7';
+/**
+ * Exportamos las clases.
+ */
+export const request  = {
+    Base    : jfAjaxRequestBase,
+    Delete  : jfAjaxRequestDelete,
+    Get     : jfAjaxRequestGet,
+    Head    : jfAjaxRequestHead,
+    Options : jfAjaxRequestOptions,
+    Patch   : jfAjaxRequestPatch,
+    Post    : jfAjaxRequestPost,
+    Put     : jfAjaxRequestPut
+};
+export const response = {
+    Default : jfAjaxResponseDefault
+};
