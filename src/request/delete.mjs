@@ -7,7 +7,8 @@ import jfAjaxRequestBase from './base';
  * @class     jf.ajax.request.Delete
  * @extends   jf.ajax.request.Base
  */
-export default class jfAjaxRequestDelete extends jfAjaxRequestBase {
+export default class jfAjaxRequestDelete extends jfAjaxRequestBase
+{
     /**
      * @override
      */

@@ -8,7 +8,8 @@ import queryString from 'querystring';
  * @class     jf.ajax.request.Post
  * @extends   jf.ajax.request.Base
  */
-export default class jfAjaxRequestPost extends jfAjaxRequestBase {
+export default class jfAjaxRequestPost extends jfAjaxRequestBase
+{
     /**
      * @override
      */

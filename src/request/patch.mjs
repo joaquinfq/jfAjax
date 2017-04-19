@@ -7,7 +7,8 @@ import jfAjaxRequestPost from './post';
  * @class     jf.ajax.request.Patch
  * @extends   jf.ajax.request.Base
  */
-export default class jfAjaxRequestPatch extends jfAjaxRequestPost {
+export default class jfAjaxRequestPatch extends jfAjaxRequestPost
+{
     /**
      * @override
      */

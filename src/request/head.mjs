@@ -7,7 +7,8 @@ import jfAjaxRequestBase from './base';
  * @class     jf.ajax.request.Head
  * @extends   jf.ajax.request.Base
  */
-export default class jfAjaxRequestHead extends jfAjaxRequestBase {
+export default class jfAjaxRequestHead extends jfAjaxRequestBase
+{
     /**
      * @override
      */

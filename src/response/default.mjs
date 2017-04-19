@@ -1,12 +1,15 @@
 import jfHttpHeaders from 'jf-http-headers';
+import jfObject from 'jf-object/jf-object.mjs';
 /**
  * Maneja la respuesta de una petición.
  *
  *
  * @namespace jf.ajax.response
  * @class     jf.ajax.response.Default
+ * @extends   jf.Object
  */
-export default class jfAjaxResponseDefault {
+export default class jfAjaxResponseDefault extends jfObject
+{
     /**
      * Encabezados recibidos del servidor.
      *
@@ -36,6 +39,7 @@ export default class jfAjaxResponseDefault {
      */
     constructor()
     {
+        super();
         this.headers = new jfHttpHeaders();
     }
 
@@ -64,7 +68,6 @@ export default class jfAjaxResponseDefault {
     getInfo()
     {
         let _xhr = this.xhr;
-
         return _xhr
             ? `HTTP/X.Y ${this.getCode()}\n${this.headers}\n\n${_xhr.responseText}`
             : '';
@@ -185,6 +188,6 @@ export default class jfAjaxResponseDefault {
     isSuccess()
     {
         let _code = this.getCode();
-        return (_code >= 200 && _code < 300) || _code === 304;
+        return _code >= 200 && _code < 300 || _code === 304;
     }
 }

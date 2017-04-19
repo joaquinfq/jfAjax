@@ -1,7 +1,7 @@
-import Events from 'events';
 import jfAjaxResponseDefault from '../response/default';
 import jfChrono from 'jf-chrono';
 import jfHttpHeaders from 'jf-http-headers';
+import jfObject from 'jf-object/jf-object';
 import jfTpl from 'jf-tpl';
 import url from 'url';
 /**
@@ -10,9 +10,10 @@ import url from 'url';
  *
  * @namespace jf.ajax.request
  * @class     jf.ajax.request.Base
- * @extends   Events
+ * @extends   jf.Object
  */
-export default class jfAjaxRequestBase extends Events {
+export default class jfAjaxRequestBase extends jfObject
+{
     /**
      * Cronómetro para medir la duración de las petición para
      * realizar pruebas de rendimiento o enviar estadísticas.
@@ -46,6 +47,13 @@ export default class jfAjaxRequestBase extends Events {
      * @type     {null|jf.HttpHeaders}
      */
     headers   = null;
+    /**
+     * Indica si el navegador tiene alguna conexión activa para realizar peticiones.
+     *
+     * @property isOnline
+     * @type     {Boolean}
+     */
+    isOnline  = true;
     /**
      * Idioma de la petición.
      * Se usa principalmente para los encabezados `Accept-Language`
@@ -105,7 +113,8 @@ export default class jfAjaxRequestBase extends Events {
     constructor(config = {})
     {
         super();
-        Object.assign(this, config);
+        this.isOnline = typeof window === 'undefined' || window.navigator.onLine;
+        this.setProperties(config);
         const _lang  = this.language || 'es';
         this.headers = new jfHttpHeaders(
             Object.assign(
@@ -133,7 +142,7 @@ export default class jfAjaxRequestBase extends Events {
      *
      * @param {Object?} query Parámetros a agregar a la URL.
      *
-     * @return {Url}
+     * @return {Url} Objeto con la información de la URL.
      *
      * @protected
      */
@@ -151,7 +160,7 @@ export default class jfAjaxRequestBase extends Events {
                     }
                 ),
                 true
-            )
+            );
         }
         if (query)
         {
@@ -171,7 +180,7 @@ export default class jfAjaxRequestBase extends Events {
      *
      * @method _formatData
      *
-     * @return {{body: null|Object, query: Object}}
+     * @return {Object} Datos formateados.
      *
      * @protected
      */
@@ -180,7 +189,7 @@ export default class jfAjaxRequestBase extends Events {
         return {
             body  : null,
             query : {}
-        }
+        };
     }
 
     /**
@@ -194,7 +203,7 @@ export default class jfAjaxRequestBase extends Events {
      *
      * @method getHxr
      *
-     * @return {XMLHttpRequest}
+     * @return {XMLHttpRequest} Objeto a usar para realizar la petición.
      */
     getXhr()
     {
@@ -215,15 +224,15 @@ export default class jfAjaxRequestBase extends Events {
     }
 
     /**
-     * Indica si el navegador tiene alguna conexión activa para realizar peticiones.
+     * Muestra información por pantalla.
+     * Puede ser sobrescrito por clases hijas para cambiar el comportamiento.
      *
-     * @method isOnline
-     *
-     * @return {Boolean}
+     * @method log
      */
-    isOnline()
+    log()
     {
-        return typeof window === 'undefined' || window.navigator.onLine;
+        // eslint-disable-next-line no-console
+        console.log(...arguments);
     }
 
     /**
@@ -290,7 +299,7 @@ export default class jfAjaxRequestBase extends Events {
         const _response = this.response;
         if (this.debug)
         {
-            console.log('\n%s\n\n', _response.getInfo());
+            this.log('\n%s\n\n', _response.getInfo());
         }
         this.emit(
             'req-end',
@@ -353,7 +362,7 @@ export default class jfAjaxRequestBase extends Events {
      */
     send()
     {
-        if (this.isOnline())
+        if (this.isOnline)
         {
             let _xhr = this.getXhr();
             //------------------------------------------------------------------------------
@@ -386,14 +395,14 @@ export default class jfAjaxRequestBase extends Events {
             const _body = _data.body || null;
             if (this.debug)
             {
-                console.log('%s %s\nHost: %s\n%s\n\n%s', this.method, _url.pathname, _url.host, '' + _headers, _body || '');
+                this.log('%s %s\nHost: %s\n%s\n\n%s', this.method, _url.pathname, _url.host, '' + _headers, _body || '');
             }
             this.chrono = new jfChrono('now');
             _xhr.send(_body);
         }
         else
         {
-            console.log('Offline');
+            this.log('Offline');
         }
     }
 

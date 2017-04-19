@@ -2,7 +2,7 @@ const IS_PRO = process.env.NODE_ENV === 'production';
 const path   = require('path');
 const config = {
     target  : 'web',
-    entry   : './src/index.es7',
+    entry   : './src/index.mjs',
     output  : {
         path          : path.join(__dirname, 'build'),
         pathinfo      : true,
@@ -13,7 +13,7 @@ const config = {
     module  : {
         loaders : [
             {
-                test   : /\.es7$/,
+                test   : /\.mjs$/,
                 loader : 'babel-loader',
                 query  : {
                     plugins : [
@@ -35,7 +35,7 @@ const config = {
     },
     plugins : [],
     resolve : {
-        extensions : [ '.js', '.es7' ]
+        extensions : ['.mjs', '.js' ]
     }
 };
 if (!IS_PRO)
