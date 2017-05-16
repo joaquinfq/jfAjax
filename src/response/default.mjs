@@ -127,10 +127,10 @@ export default class jfAjaxResponseDefault extends jfObject
             let _headers = this.headers;
             if (!Object.keys(_headers.headers).length)
             {
-                const _headers = _xhr.getAllResponseHeaders();
-                if (_headers)
+                const _responseHeaders = _xhr.getAllResponseHeaders();
+                if (_responseHeaders)
                 {
-                    _headers.parse(_headers.split('\r\n'));
+                    _headers.parse(_responseHeaders.split('\r\n'));
                 }
             }
             let _type = (_headers.get('Content-Type') || '').toLowerCase().split(';').shift().trim();
