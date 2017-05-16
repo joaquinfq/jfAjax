@@ -113,7 +113,7 @@ export default class jfAjaxRequestBase extends jfObject
     constructor(config = {})
     {
         super();
-        this.isOnline = typeof window === 'undefined' || window.navigator.onLine;
+        this.isOnline = (typeof window === 'undefined' || window.navigator.onLine) === true;
         this.setProperties(config);
         const _lang  = this.language || 'es';
         this.headers = new jfHttpHeaders(
