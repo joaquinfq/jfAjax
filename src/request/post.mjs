@@ -25,9 +25,9 @@ export default class jfAjaxRequestPost extends jfAjaxRequestBase
         if (_data !== null)
         {
             let _type = (this.headers.get('Content-Type') || '').toLowerCase();
-            _body     = _type.indexOf('/json') === -1
-                ? queryString.stringify(_data).trim()
-                : JSON.stringify(_data);
+            _body     = /\bjson\b/.test(_type)
+                ? JSON.stringify(_data)
+                : queryString.stringify(_data).trim();
         }
         return {
             body : _body
