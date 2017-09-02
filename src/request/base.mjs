@@ -297,9 +297,11 @@ export default class jfAjaxRequestBase extends jfObject
     _onRequestEnd(e)
     {
         const _response = this.response;
-        if (this.debug)
+        if (this.debug && typeof console === 'object')
         {
-            this.log('\n%s\n\n', _response.getInfo());
+            console.groupCollapsed('jfAjax - Response: %s %s', this.method, url.parse(this.url).pathname);
+            console.log('\n%s\n\n', _response.getInfo());
+            console.groupEnd();
         }
         this.emit(
             'req-end',
@@ -393,9 +395,11 @@ export default class jfAjaxRequestBase extends jfObject
             // Realizamos la petición.
             //------------------------------------------------------------------------------
             const _body = _data.body || null;
-            if (this.debug)
+            if (this.debug && typeof console === 'object')
             {
-                this.log('%s %s\nHost: %s\n%s\n\n%s', this.method, _url.pathname, _url.host, '' + _headers, _body || '');
+                console.groupCollapsed('jfAjax -- Request: %s %s', this.method, _url.pathname);
+                console.log('%s %s\nHost: %s\n%s\n\n%s', this.method, _url.pathname, _url.host, '' + _headers, _body || '');
+                console.groupEnd();
             }
             this.chrono = new jfChrono('now');
             _xhr.send(_body);
