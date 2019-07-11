@@ -1,5 +1,5 @@
 import jfHttpHeaders from 'jf-http-headers';
-import jfObject from 'jf-object/jf-object';
+import jfObject from '@jf/object';
 /**
  * Maneja la respuesta de una petición.
  *

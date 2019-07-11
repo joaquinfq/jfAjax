@@ -1,8 +1,8 @@
 import jfAjaxResponseDefault from '../response/default';
-import jfChrono from 'jf-chrono';
+import jfChrono from '@jf/chrono';
 import jfHttpHeaders from 'jf-http-headers';
-import jfObject from 'jf-object/jf-object';
-import jfTpl from 'jf-tpl';
+import jfObject from '@jf/object';
+import jfTpl from '@jf/tpl';
 import url from 'url';
 /**
  * Clase base para realizar peticiones a los servidores.
